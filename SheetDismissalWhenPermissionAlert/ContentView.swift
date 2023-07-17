@@ -8,19 +8,44 @@
 import SwiftUI
 
 struct ContentView: View {
-    var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
-        }
-        .padding()
+  @Environment(\.scenePhase) var scenePhase
+  
+  @State var showSheet: Bool = false
+  @State var showSheet2: Bool = false
+  @State var shouldShowSheet2: Bool = false
+
+  var body: some View {
+    VStack {
+      Button {
+        showSheet = true
+      } label: {
+        Text("Show sheet 1")
+      }
     }
+    .padding()
+    .sheet(isPresented: $showSheet, onDismiss: {
+      if shouldShowSheet2 {
+        showSheet2 = true
+      }
+    }) {
+      VStack {
+        Text("Sheet 1")
+        Button {
+          showSheet = false
+          shouldShowSheet2 = true
+        } label: {
+          Text("Show sheet 2")
+        }
+      }
+    }
+    .sheet(isPresented: $showSheet2) {
+      Text("Sheet 2")
+    }
+  }
 }
 
 struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-    }
+  static var previews: some View {
+    ContentView()
+  }
 }

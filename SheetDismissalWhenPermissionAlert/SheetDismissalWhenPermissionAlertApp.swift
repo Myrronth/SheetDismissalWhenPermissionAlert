@@ -9,9 +9,11 @@ import SwiftUI
 
 @main
 struct SheetDismissalWhenPermissionAlertApp: App {
-    var body: some Scene {
-        WindowGroup {
-            ContentView()
-        }
+  @Environment(\.scenePhase) var scenePhase
+  
+  var body: some Scene {
+    WindowGroup {
+      ContentView()
     }
+  }
 }
